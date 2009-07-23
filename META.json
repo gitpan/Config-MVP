@@ -1,0 +1,21 @@
+{
+   "resources" : {
+      "repository" : "origin"
+   },
+   "meta-spec" : {
+      "version" : 1.4,
+      "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
+   },
+   "generated_by" : "Dist::Zilla::Plugin::MetaJSON version 1.091940",
+   "version" : "0.092040",
+   "name" : "Config-MVP",
+   "author" : [
+      "Ricardo Signes <rjbs@cpan.org>"
+   ],
+   "license" : "perl",
+   "requires" : {
+      "Tie::IxHash" : "0",
+      "Moose" : "0"
+   },
+   "abstract" : "multivalue-property configuration"
+}

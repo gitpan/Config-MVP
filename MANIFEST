@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST
+META.json
+Makefile.PL
+README
+dist.ini
+lib/Config/MVP.pm
+lib/Config/MVP/Assembler.pm
+lib/Config/MVP/Section.pm
+lib/Config/MVP/Sequence.pm
+t/basic.t
+t/lib/Foo/Bar.pm
+t/lib/Foo/Baz.pm
+t/lib/Foo/Quux.pm
