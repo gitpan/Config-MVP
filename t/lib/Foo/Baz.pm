@@ -1,5 +1,5 @@
 package Foo::Bar;
-our $VERSION = '0.092040';
+our $VERSION = '0.092060';
 
-sub multivalue_args { qw(multi) }
+sub mvp_multivalue_args { qw(multi) }
 1;

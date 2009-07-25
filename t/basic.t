@@ -9,17 +9,23 @@ require_ok( 'Config::MVP::Assembler' );
 
 my $assembler = Config::MVP::Assembler->new;
 
-$assembler->set_value(foo => 10);
-$assembler->set_value(bar => 11);
+my $section = Config::MVP::Section->new({
+  name => '_',
+});
+
+$assembler->sequence->add_section($section);
+
+$assembler->add_value(foo => 10);
+$assembler->add_value(bar => 11);
 
 $assembler->change_section('Foo::Bar');
-$assembler->set_value(x => 10);
-$assembler->set_value(y => 20);
-$assembler->set_value(y => 30);
-$assembler->set_value(z => -123);
+$assembler->add_value(x => 10);
+$assembler->add_value(y => 20);
+$assembler->add_value(y => 30);
+$assembler->add_value(z => -123);
 
 $assembler->change_section('Foo::Bar', 'baz');
-$assembler->set_value(x => 1);
+$assembler->add_value(x => 1);
 
 my @sections = $assembler->sequence->sections;
 

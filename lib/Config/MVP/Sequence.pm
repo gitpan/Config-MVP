@@ -1,8 +1,9 @@
 package Config::MVP::Sequence;
-our $VERSION = '0.092040';
+our $VERSION = '0.092060';
 
 use Moose;
 # ABSTRACT: an ordered set of named configuration sections
+
 
 use Tie::IxHash;
 use Config::MVP::Section;
@@ -57,7 +58,12 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 0.092040
+version 0.092060
+
+=head1 DESCRIPTION
+
+For the most part, you can just consult L<Config::MVP> or
+L<Config::MVP::Assembler>.
 
 =head1 AUTHOR
 

@@ -8,8 +8,8 @@ WriteMakefile(
   DISTNAME  => 'Config-MVP',
   NAME      => 'Config::MVP',
   AUTHOR    => 'Ricardo\ Signes\ \<rjbs\@cpan\.org\>',
-  ABSTRACT  => 'multivalue\-property\ configuration',
-  VERSION   => '0.092040',
+  ABSTRACT  => 'multivalue\-property\ package\-oriented\ configuration',
+  VERSION   => '0.092060',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
