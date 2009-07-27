@@ -1,4 +1,4 @@
 package Foo::Quux;
-our $VERSION = '0.092060';
+our $VERSION = '0.092080';
 
 1;
