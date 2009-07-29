@@ -1,5 +1,5 @@
 package Config::MVP::Assembler;
-our $VERSION = '0.092080';
+our $VERSION = '0.092100';
 
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
@@ -49,6 +49,9 @@ sub change_section {
 
   # We already inspected this plugin.
   my $pkg_data = do {
+    confess "illegal package name $package"
+      unless Params::Util::_CLASS($package);
+
     eval "require $package; 1"
       or confess "couldn't load plugin $name given in config: $@";
 
@@ -90,7 +93,7 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 0.092080
+version 0.092100
 
 =head1 DESCRIPTION
 

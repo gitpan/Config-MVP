@@ -1,5 +1,5 @@
 package Config::MVP;
-our $VERSION = '0.092080';
+our $VERSION = '0.092100';
 
 use strict;
 use warnings;
@@ -18,7 +18,7 @@ Config::MVP - multivalue-property package-oriented configuration
 
 =head1 VERSION
 
-version 0.092080
+version 0.092100
 
 =head1 DESCRIPTION
 
