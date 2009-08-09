@@ -1,5 +1,5 @@
 package Config::MVP::Assembler;
-our $VERSION = '0.092210';
+our $VERSION = '0.092211';
 
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
@@ -15,12 +15,14 @@ has sequence_class => (
   default => 'Config::MVP::Sequence',
 );
 
+
 has section_class => (
   is   => 'ro',
   isa  => 'ClassName',
   lazy => 1,
   default => 'Config::MVP::Section',
 );
+
 
 has sequence => (
   is  => 'ro',
@@ -29,16 +31,6 @@ has sequence => (
   init_arg => undef,
 );
 
-sub current_section {
-  my ($self) = @_;
-
-  my (@sections) = $self->sequence->sections;
-  return $sections[ -1 ] if @sections;
-
-  return;
-}
-
-sub expand_package { $_[1] }
 
 sub change_section {
   my ($self, $package_moniker, $name) = @_;
@@ -55,6 +47,7 @@ sub change_section {
   $self->sequence->add_section($section);
 }
 
+
 sub add_value {
   my ($self, $name, $value) = @_;
 
@@ -62,6 +55,19 @@ sub add_value {
     unless my $section = $self->current_section;
 
   $section->add_value($name => $value);
+}
+
+
+sub expand_package { $_[1] }
+
+
+sub current_section {
+  my ($self) = @_;
+
+  my (@sections) = $self->sequence->sections;
+  return $sections[ -1 ] if @sections;
+
+  return;
 }
 
 no Moose;
@@ -77,20 +83,27 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 0.092210
+version 0.092211
 
 =head1 DESCRIPTION
 
+First, you should probably read the L<example of using
+Config::MVP|Config::MVP/EXAMPLE>.  If you already know how it works, keep
+going.
+
 Config::MVP::Assembler is a helper for constructing a Config::MVP::Sequence
-object.
+object.  It's a very simple state machine that lets you signal what kind of
+events you've encountered while reading configuration.  These events are
+limited to C<L</change_section>> and C<L</add_value>>.  In the future, one or
+two methods may be added, such as C<begin_section> and C<end_section>.
 
 =head1 TYPICAL USE
 
   my $assembler = Config::MVP::Assembler->new;
 
   # Maybe you want a starting section:
-  my $section = $assembler->section_class->new({ name => '_' });
-  $assembler->sequence->add_section($section);
+  my $starting_section = $assembler->section_class->new({ name => '_' });
+  $assembler->sequence->add_section($section_starting);
 
   # We'll add some values, which will go to the starting section:
   $assembler->add_value(x => 10);
@@ -118,6 +131,59 @@ C<L</expand_package>> method is used as the section's package name.  (By
 default, this method does nothing.)  The new section's C<multivalue_args> and
 C<aliases> are determined by calling the C<mvp_multivalue_args> and
 C<mvp_aliases> methods on the package.
+
+=head1 ATTRIBUTES
+
+=head2 sequence_class
+
+This attribute stores the name of the class to be used for the assembler's
+sequence.  It defaults to Config::MVP::Sequence.
+
+=head2 section_class
+
+This attribute stores the name of the class to be used for sections created by
+the assembler.  It defaults to Config::MVP::Section.
+
+=head2 sequence
+
+This is the sequence that the assembler is assembling.  It defaults to a new
+instance of the assembler's C<sequence_class>.
+
+=head1 METHODS
+
+=head2 change_section
+
+  $assembler->change_section($package_moniker, $name);
+
+  $assembler->change_section($package_moniker);
+
+This method tells the assembler that it should begin work on a new section with
+the given identifier.  The package moniker is expanded by the
+C<L</expand_package>> method.  The name, if not given, defaults to the package
+moniker.  These data are used to create a new section and the section is added
+to the end of the sequence.
+
+=head2 add_value
+
+  $assembler->add_value( $name => $value );
+
+This method tells the assembler that it has encountered a named value and
+should add it to the current section.  If there is no current section, an
+exception is raised.  (If this is not the first time we've seen the name in the
+section and it's not a multivalue property, the section class will raise an
+exception on its own.)
+
+=head2 expand_package
+
+This method is passed a short identifier for a package and is expected to
+return the full name of the module to load and package to interrogate.  By
+default it simply returns the name it was passed, meaning that package names
+must be given whole to the C<change_section> method.
+
+=head2 current_section
+
+This returns the section object onto which the assembler is currently adding
+values.  If no section has yet been created, this method will return false.
 
 =head1 AUTHOR
 
