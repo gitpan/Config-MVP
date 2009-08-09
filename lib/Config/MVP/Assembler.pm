@@ -1,5 +1,5 @@
 package Config::MVP::Assembler;
-our $VERSION = '0.092100';
+our $VERSION = '0.092210';
 
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
@@ -47,25 +47,9 @@ sub change_section {
 
   my $package = $self->expand_package($package_moniker);
 
-  # We already inspected this plugin.
-  my $pkg_data = do {
-    confess "illegal package name $package"
-      unless Params::Util::_CLASS($package);
-
-    eval "require $package; 1"
-      or confess "couldn't load plugin $name given in config: $@";
-
-    {
-      alias =>   eval { $package->mvp_aliases         } || {},
-      multi => [ eval { $package->mvp_multivalue_args } ],
-    };
-  };
-
   my $section = $self->section_class->new({
     name    => $name,
     package => $package,
-    aliases => $pkg_data->{alias},
-    multivalue_args => $pkg_data->{multi},
   });
 
   $self->sequence->add_section($section);
@@ -93,7 +77,7 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 0.092100
+version 0.092210
 
 =head1 DESCRIPTION
 
@@ -144,7 +128,7 @@ C<mvp_aliases> methods on the package.
 This software is copyright (c) 2009 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 

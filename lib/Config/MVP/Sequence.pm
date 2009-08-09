@@ -1,5 +1,5 @@
 package Config::MVP::Sequence;
-our $VERSION = '0.092100';
+our $VERSION = '0.092210';
 
 use Moose;
 # ABSTRACT: an ordered set of named configuration sections
@@ -58,7 +58,7 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 0.092100
+version 0.092210
 
 =head1 DESCRIPTION
 
@@ -74,7 +74,7 @@ L<Config::MVP::Assembler>.
 This software is copyright (c) 2009 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
-the same terms as perl itself.
+the same terms as the Perl 5 programming language system itself.
 
 =cut 
 
