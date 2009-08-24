@@ -1,5 +1,5 @@
 package Config::MVP::Assembler;
-our $VERSION = '0.092211';
+our $VERSION = '0.092360';
 
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
@@ -32,8 +32,17 @@ has sequence => (
 );
 
 
-sub change_section {
+has _between_sections => (
+  is  => 'rw',
+  isa => 'Bool',
+  default => 0,
+);
+
+sub begin_section {
   my ($self, $package_moniker, $name) = @_;
+
+  Carp::confess("can't begin a new section with a section open")
+    if $self->current_section;
 
   $name = $package_moniker unless defined $name and length $name;
 
@@ -44,7 +53,26 @@ sub change_section {
     package => $package,
   });
 
+  $self->_between_sections(0);
   $self->sequence->add_section($section);
+}
+
+
+sub end_section {
+  my ($self) = @_;
+
+  Carp::confess("can't end a section because no section is active")
+    unless $self->current_section;
+
+  $self->_between_sections(1);
+}
+
+
+sub change_section {
+  my $self = shift;
+
+  $self->end_section if $self->current_section;
+  $self->begin_section(@_);
 }
 
 
@@ -64,6 +92,7 @@ sub expand_package { $_[1] }
 sub current_section {
   my ($self) = @_;
 
+  return if $self->_between_sections;
   my (@sections) = $self->sequence->sections;
   return $sections[ -1 ] if @sections;
 
@@ -83,7 +112,7 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 0.092211
+version 0.092360
 
 =head1 DESCRIPTION
 
@@ -93,9 +122,7 @@ going.
 
 Config::MVP::Assembler is a helper for constructing a Config::MVP::Sequence
 object.  It's a very simple state machine that lets you signal what kind of
-events you've encountered while reading configuration.  These events are
-limited to C<L</change_section>> and C<L</add_value>>.  In the future, one or
-two methods may be added, such as C<begin_section> and C<end_section>.
+events you've encountered while reading configuration.
 
 =head1 TYPICAL USE
 
@@ -151,17 +178,35 @@ instance of the assembler's C<sequence_class>.
 
 =head1 METHODS
 
+=head2 begin_section
+
+  $assembler->begin_section($package_moniker, $name);
+
+  $assembler->begin_section($package_moniker);
+
+This method tells the assembler that it should begin work on a new section with
+the given identifier.  If it is already working on a section, an error will be
+raised.  See C<L</change_section>> for a method to begin a new section, ending
+the current one if needed.
+
+The package moniker is expanded by the C<L</expand_package>> method.  The name,
+if not given, defaults to the package moniker.  These data are used to create a
+new section and the section is added to the end of the sequence.
+
+=head2 end_section
+
+  $assembler->end_section;
+
+This ends the current section.  If there is no current section, an exception is
+raised.
+
 =head2 change_section
 
   $assembler->change_section($package_moniker, $name);
 
   $assembler->change_section($package_moniker);
 
-This method tells the assembler that it should begin work on a new section with
-the given identifier.  The package moniker is expanded by the
-C<L</expand_package>> method.  The name, if not given, defaults to the package
-moniker.  These data are used to create a new section and the section is added
-to the end of the sequence.
+This method calls C<begin_section>, first calling C<end_section> if needed.
 
 =head2 add_value
 

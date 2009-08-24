@@ -1,5 +1,5 @@
 package Config::MVP::Sequence;
-our $VERSION = '0.092211';
+our $VERSION = '0.092360';
 
 use Moose;
 # ABSTRACT: an ordered set of named configuration sections
@@ -28,6 +28,15 @@ sub add_section {
   confess "already have a section named $name" if $self->_sections->{ $name };
 
   $self->_sections->{ $name } = $section;
+}
+
+
+sub delete_section {
+  my ($self, $name) = @_;
+  my $sections = $self->_sections;
+
+  return unless exists $sections->{ $name };
+  return delete $sections->{ $name };
 }
 
 
@@ -64,7 +73,7 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 0.092211
+version 0.092360
 
 =head1 DESCRIPTION
 
@@ -83,6 +92,13 @@ class is and how it's used.
 This method adds the given section to the end of the sequence.  If the sequence
 already contains a section with the same name as the new section, an exception
 will be raised.
+
+=head2 delete_section
+
+  my $deleted_section = $sequence->delete_section( $name );
+
+This method removes a section from the sequence and returns the removed
+section.  If no section existed, the method returns false.
 
 =head2 section_named
 
