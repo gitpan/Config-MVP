@@ -1,13 +1,13 @@
 {
    "resources" : {
-      "repository" : "http://github.com/rjbs/config-mvp/tree"
+      "repository" : "http://github.com/rjbs/config-mvp"
    },
    "meta-spec" : {
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "generated_by" : "Dist::Zilla::Plugin::MetaJSON version 1.092310",
-   "version" : "0.092360",
+   "generated_by" : "Dist::Zilla version 1.092990",
+   "version" : "0.092990",
    "name" : "Config-MVP",
    "author" : [
       "Ricardo Signes <rjbs@cpan.org>"

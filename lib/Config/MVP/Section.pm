@@ -1,5 +1,6 @@
 package Config::MVP::Section;
-our $VERSION = '0.092360';
+our $VERSION = '0.092990';
+
 
 use Moose;
 # ABSTRACT: one section of an MVP configuration sequence
@@ -105,7 +106,6 @@ no Moose;
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -114,7 +114,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 0.092360
+version 0.092990
 
 =head1 DESCRIPTION
 
@@ -193,6 +193,5 @@ This software is copyright (c) 2009 by Ricardo Signes.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

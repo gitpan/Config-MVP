@@ -1,5 +1,6 @@
 package Config::MVP::Assembler;
-our $VERSION = '0.092360';
+our $VERSION = '0.092990';
+
 
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
@@ -103,7 +104,6 @@ no Moose;
 1;
 
 __END__
-
 =pod
 
 =head1 NAME
@@ -112,7 +112,7 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 0.092360
+version 0.092990
 
 =head1 DESCRIPTION
 
@@ -123,41 +123,6 @@ going.
 Config::MVP::Assembler is a helper for constructing a Config::MVP::Sequence
 object.  It's a very simple state machine that lets you signal what kind of
 events you've encountered while reading configuration.
-
-=head1 TYPICAL USE
-
-  my $assembler = Config::MVP::Assembler->new;
-
-  # Maybe you want a starting section:
-  my $starting_section = $assembler->section_class->new({ name => '_' });
-  $assembler->sequence->add_section($section_starting);
-
-  # We'll add some values, which will go to the starting section:
-  $assembler->add_value(x => 10);
-  $assembler->add_value(y => 20);
-
-  # Change to a new section...
-  $assembler->change_section($moniker);
-
-  # ...and add values to that section.
-  $assembler->add_value(x => 100);
-  $assembler->add_value(y => 200);
-
-The code above creates an assembler and populates it step by step.  In the end,
-to get values, you could do something like this:
-
-  my @output;
-
-  for my $section ($assembler->sequence->sections) {
-    push @output, [ $section->name, $section->package, $section->payload ];
-  }
-
-When changing sections, the given section "moniker" is used for the new section
-name.  The result of passing that moniker to the assembler's
-C<L</expand_package>> method is used as the section's package name.  (By
-default, this method does nothing.)  The new section's C<multivalue_args> and
-C<aliases> are determined by calling the C<mvp_multivalue_args> and
-C<mvp_aliases> methods on the package.
 
 =head1 ATTRIBUTES
 
@@ -230,6 +195,41 @@ must be given whole to the C<change_section> method.
 This returns the section object onto which the assembler is currently adding
 values.  If no section has yet been created, this method will return false.
 
+=head1 TYPICAL USE
+
+  my $assembler = Config::MVP::Assembler->new;
+
+  # Maybe you want a starting section:
+  my $starting_section = $assembler->section_class->new({ name => '_' });
+  $assembler->sequence->add_section($section_starting);
+
+  # We'll add some values, which will go to the starting section:
+  $assembler->add_value(x => 10);
+  $assembler->add_value(y => 20);
+
+  # Change to a new section...
+  $assembler->change_section($moniker);
+
+  # ...and add values to that section.
+  $assembler->add_value(x => 100);
+  $assembler->add_value(y => 200);
+
+The code above creates an assembler and populates it step by step.  In the end,
+to get values, you could do something like this:
+
+  my @output;
+
+  for my $section ($assembler->sequence->sections) {
+    push @output, [ $section->name, $section->package, $section->payload ];
+  }
+
+When changing sections, the given section "moniker" is used for the new section
+name.  The result of passing that moniker to the assembler's
+C<L</expand_package>> method is used as the section's package name.  (By
+default, this method does nothing.)  The new section's C<multivalue_args> and
+C<aliases> are determined by calling the C<mvp_multivalue_args> and
+C<mvp_aliases> methods on the package.
+
 =head1 AUTHOR
 
   Ricardo Signes <rjbs@cpan.org>
@@ -241,6 +241,5 @@ This software is copyright (c) 2009 by Ricardo Signes.
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
-=cut 
-
+=cut
 

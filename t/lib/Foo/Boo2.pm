@@ -1,4 +1,4 @@
-package Foo::Quux;
+package Foo::Boo2;
 our $VERSION = '0.092990';
 
 
