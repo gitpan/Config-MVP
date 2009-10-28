@@ -21,6 +21,7 @@ t/lib/Foo/Baz.pm
 t/lib/Foo/Boo1.pm
 t/lib/Foo/Boo2.pm
 t/lib/Foo/Boondle.pm
+t/lib/Foo/Metaboondle.pm
 t/lib/Foo/Quux.pm
 t/reader.t
 t/release-pod-coverage.t
