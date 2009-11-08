@@ -9,11 +9,12 @@ WriteMakefile(
   NAME      => 'Config::MVP',
   AUTHOR    => "Ricardo\ Signes\ \<rjbs\@cpan\.org\>",
   ABSTRACT  => "multivalue\-property\ package\-oriented\ configuration",
-  VERSION   => '0.093000',
+  VERSION   => '0.093120',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
     "Tie::IxHash" => '0',
+    "Module::Pluggable::Object" => '0',
     "Moose" => '0',
   },
   test => {TESTS => 't/*.t'}
