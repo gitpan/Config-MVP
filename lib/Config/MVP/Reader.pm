@@ -1,5 +1,5 @@
 package Config::MVP::Reader;
-our $VERSION = '0.093120';
+our $VERSION = '0.093330';
 
 
 use Moose::Role;
@@ -33,7 +33,7 @@ Config::MVP::Reader - role to load MVP-style config from a file
 
 =head1 VERSION
 
-version 0.093120
+version 0.093330
 
 =head1 DESCRIPTION
 

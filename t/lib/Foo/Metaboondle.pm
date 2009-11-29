@@ -1,5 +1,5 @@
 package Foo::Metaboondle;
-our $VERSION = '0.093120';
+our $VERSION = '0.093330';
 
 
 

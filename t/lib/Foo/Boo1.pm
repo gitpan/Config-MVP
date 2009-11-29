@@ -1,5 +1,5 @@
 package Foo::Boo1;
-our $VERSION = '0.093120';
+our $VERSION = '0.093330';
 
 
 1;

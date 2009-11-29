@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+
+
 use ExtUtils::MakeMaker;
 
 WriteMakefile(
@@ -9,7 +11,7 @@ WriteMakefile(
   NAME      => 'Config::MVP',
   AUTHOR    => "Ricardo\ Signes\ \<rjbs\@cpan\.org\>",
   ABSTRACT  => "multivalue\-property\ package\-oriented\ configuration",
-  VERSION   => '0.093120',
+  VERSION   => '0.093330',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {
