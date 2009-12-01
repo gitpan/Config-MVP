@@ -1,5 +1,5 @@
 package Config::MVP::Reader;
-our $VERSION = '0.093330';
+our $VERSION = '0.093350';
 
 
 use Moose::Role;
@@ -33,7 +33,7 @@ Config::MVP::Reader - role to load MVP-style config from a file
 
 =head1 VERSION
 
-version 0.093330
+version 0.093350
 
 =head1 DESCRIPTION
 
@@ -67,7 +67,7 @@ of other classes or with pre-loaded sections.
 This method, B<which must be implemented by classes including this role>, is
 passed a hashref of arguments and returns a Config::MVP::Sequence.
 
-Valid arguments include:
+Likely arguments include:
 
   root     - the name of the directory in which to look
   filename - the filename in that directory to read

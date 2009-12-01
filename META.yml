@@ -14,4 +14,4 @@ requires:
   Tie::IxHash: 0
 resources:
   repository: http://github.com/rjbs/config-mvp
-version: 0.093330
+version: 0.093350

@@ -1,5 +1,5 @@
 package Config::MVP::Sequence;
-our $VERSION = '0.093330';
+our $VERSION = '0.093350';
 
 
 use Moose;
@@ -73,7 +73,7 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 0.093330
+version 0.093350
 
 =head1 DESCRIPTION
 

@@ -7,7 +7,7 @@
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
    "generated_by" : "Dist::Zilla version 1.093290",
-   "version" : "0.093330",
+   "version" : "0.093350",
    "name" : "Config-MVP",
    "author" : [
       "Ricardo Signes <rjbs@cpan.org>"

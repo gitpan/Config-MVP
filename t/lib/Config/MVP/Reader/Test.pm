@@ -1,5 +1,5 @@
 package Config::MVP::Reader::Test;
-our $VERSION = '0.093330';
+our $VERSION = '0.093350';
 
 
 use Moose;
