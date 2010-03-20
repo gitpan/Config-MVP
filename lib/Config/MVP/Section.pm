@@ -1,7 +1,5 @@
 package Config::MVP::Section;
-our $VERSION = '0.093350';
-
-
+our $VERSION = '0.100780';
 use Moose;
 # ABSTRACT: one section of an MVP configuration sequence
 
@@ -37,8 +35,9 @@ has multivalue_args => (
 
 
 has aliases => (
-  is  => 'ro',
-  isa => 'HashRef',
+  is   => 'ro',
+  isa  => 'HashRef',
+  lazy => 1,
   default => sub {
     my ($self) = @_;
 
@@ -114,7 +113,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 0.093350
+version 0.100780
 
 =head1 DESCRIPTION
 
@@ -188,7 +187,7 @@ added will result in an exception.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo Signes.
+This software is copyright (c) 2010 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

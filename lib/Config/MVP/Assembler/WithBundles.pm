@@ -1,7 +1,5 @@
 package Config::MVP::Assembler::WithBundles;
-our $VERSION = '0.093350';
-
-
+our $VERSION = '0.100780';
 use Moose::Role;
 # ABSTRACT: a role to make assemblers expand bundles
 
@@ -77,7 +75,7 @@ Config::MVP::Assembler::WithBundles - a role to make assemblers expand bundles
 
 =head1 VERSION
 
-version 0.093350
+version 0.100780
 
 =head1 DESCRIPTION
 
@@ -119,7 +117,7 @@ Each arrayref is converted into a section in the sequence.
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo Signes.
+This software is copyright (c) 2010 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

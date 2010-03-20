@@ -1,7 +1,5 @@
 package Config::MVP::Reader::Finder;
-our $VERSION = '0.093350';
-
-
+our $VERSION = '0.100780';
 use Moose;
 with qw(Config::MVP::Reader);
 # ABSTRACT: a reader that finds an appropriate file
@@ -64,7 +62,7 @@ Config::MVP::Reader::Finder - a reader that finds an appropriate file
 
 =head1 VERSION
 
-version 0.093350
+version 0.100780
 
 =head1 DESCRIPTION
 
@@ -95,7 +93,7 @@ method should return a list, and by default returns:
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Ricardo Signes.
+This software is copyright (c) 2010 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

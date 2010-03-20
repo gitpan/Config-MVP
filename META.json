@@ -1,23 +1,30 @@
 {
    "resources" : {
-      "repository" : "http://github.com/rjbs/config-mvp"
+      "repository" : "git://git.codesimply.com/Config-MVP.git"
    },
    "meta-spec" : {
       "version" : 1.4,
       "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
    },
-   "generated_by" : "Dist::Zilla version 1.093290",
-   "version" : "0.093350",
+   "generated_by" : "Dist::Zilla version 1.100730",
+   "version" : "0.100780",
    "name" : "Config-MVP",
    "author" : [
       "Ricardo Signes <rjbs@cpan.org>"
    ],
    "license" : "perl",
+   "build_requires" : {},
    "requires" : {
+      "Test::More" : "0.88",
+      "Moose::Role" : "0",
       "Tie::IxHash" : "0",
+      "File::Spec" : "0",
       "Module::Pluggable::Object" : "0",
       "Moose" : "0"
    },
-   "abstract" : "multivalue-property package-oriented configuration"
+   "abstract" : "multivalue-property package-oriented configuration",
+   "configure_requires" : {
+      "ExtUtils::MakeMaker" : "6.11"
+   }
 }
 

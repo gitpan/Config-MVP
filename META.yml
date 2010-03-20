@@ -2,16 +2,22 @@
 abstract: 'multivalue-property package-oriented configuration'
 author:
   - 'Ricardo Signes <rjbs@cpan.org>'
-generated_by: 'Dist::Zilla version 1.093290'
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.11
+generated_by: 'Dist::Zilla version 1.100730'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Config-MVP
 requires:
+  File::Spec: 0
   Module::Pluggable::Object: 0
   Moose: 0
+  Moose::Role: 0
+  Test::More: 0.88
   Tie::IxHash: 0
 resources:
-  repository: http://github.com/rjbs/config-mvp
-version: 0.093350
+  repository: git://git.codesimply.com/Config-MVP.git
+version: 0.100780

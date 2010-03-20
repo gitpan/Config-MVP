@@ -1,7 +1,5 @@
 package Foo::Boondle;
-our $VERSION = '0.093350';
-
-
+our $VERSION = '0.100780';
 
 sub mvp_bundle_config {
   return (
