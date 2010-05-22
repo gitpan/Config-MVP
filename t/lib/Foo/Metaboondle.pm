@@ -1,5 +1,4 @@
 package Foo::Metaboondle;
-our $VERSION = '0.100780';
 
 sub mvp_bundle_config {
   return (

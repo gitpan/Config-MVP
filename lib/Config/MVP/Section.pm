@@ -1,5 +1,7 @@
 package Config::MVP::Section;
-our $VERSION = '0.100780';
+BEGIN {
+  $Config::MVP::Section::VERSION = '0.101410';
+}
 use Moose;
 # ABSTRACT: one section of an MVP configuration sequence
 
@@ -56,8 +58,59 @@ has payload => (
 );
 
 
+has is_finalized => (
+  is  => 'ro',
+  isa => 'Bool',
+  traits   => [ 'Bool' ],
+  init_arg => undef,
+  default  => 0,
+  handles  => { finalize => 'set' },
+);
+
+before finalize => sub {
+  my ($self) = @_;
+
+  confess "can't finalize a Config::MVP::Section that hasn't been sequenced"
+    unless $self->sequence;
+};
+
+
+has sequence => (
+  is  => 'ro',
+  isa => 'Config::MVP::Sequence',
+  weak_ref  => 1,
+  predicate => '_sequence_has_been_set',
+  reader    => '_sequence',
+  writer    => '__set_sequence',
+  clearer   => '_clear_sequence',
+);
+
+sub _set_sequence {
+  my ($self, $seq) = @_;
+  confess "can't change Config::MVP::Section's sequence after it's set"
+    if $self->sequence;
+  $self->__set_sequence($seq);
+}
+
+sub sequence {
+  my ($self) = @_;
+  return undef unless $self->_sequence_has_been_set;
+  my $seq = $self->_sequence;
+
+  unless (defined $seq) {
+    confess "tried to access sequence for a Config::MVP::Section, "
+          . "but it has been destroyed"
+  }
+
+  return $seq;
+}
+
+
 sub add_value {
   my ($self, $name, $value) = @_;
+
+  confess "can't add values to finalized section " . $self->name
+    if $self->is_finalized;
 
   my $alias = $self->aliases->{ $name };
   $name = $alias if defined $alias;
@@ -81,14 +134,13 @@ sub add_value {
 sub _BUILD_package_settings {
   my ($self) = @_;
 
-  return unless defined (my $pkg  = $self->package);
+  return unless defined (my $pkg = $self->package);
 
-  # We already inspected this plugin.
   confess "illegal package name $pkg" unless Params::Util::_CLASS($pkg);
 
   my $name = $self->name;
   eval "require $pkg; 1"
-    or confess "couldn't load plugin $name given in config: $@";
+    or confess "couldn't load package $pkg for plugin $name: $@";
 
   # We call these accessors for lazy attrs to ensure they're initialized from
   # defaults if needed.  Crash early! -- rjbs, 2009-08-09
@@ -113,7 +165,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 0.100780
+version 0.101410
 
 =head1 DESCRIPTION
 
@@ -167,6 +219,18 @@ method, it default to an empty hashref.
 This is the storage into which properties are set.  It is a hashref of names
 and values.  You should probably not alter the contents of the payload, and
 should read its contents only.
+
+=head2 is_finalized
+
+This attribute is true if the section has been marked finalized, which will
+prevent any new values from being added to it.  It can be set with the
+C<finalize> method.
+
+=head2 sequence
+
+This attributes points to the sequence into which the section has been
+assembled.  It may be unset if the section has been created but not yet placed
+in a sequence.
 
 =head1 METHODS
 

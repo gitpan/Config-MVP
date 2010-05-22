@@ -1,7 +1,11 @@
 package Config::MVP::Assembler::WithBundles;
-our $VERSION = '0.100780';
+BEGIN {
+  $Config::MVP::Assembler::WithBundles::VERSION = '0.101410';
+}
 use Moose::Role;
 # ABSTRACT: a role to make assemblers expand bundles
+
+use Params::Util qw(_HASHLIKE _ARRAYLIKE);
 
 
 sub package_bundle_method {
@@ -19,12 +23,20 @@ after end_section => sub {
   return unless $last->package;
   return unless my $method = $self->package_bundle_method($last->package);
 
-  $seq->delete_section($last->name);
+  $self->replace_bundle_with_contents($last, $method);
+};
+
+sub replace_bundle_with_contents {
+  my ($self, $bundle_sec, $method) = @_;
+
+  my $seq = $self->sequence;
+
+  $seq->delete_section($bundle_sec->name);
 
   $self->_add_bundle_contents($method, {
-    name    => $last->name,
-    package => $last->package,
-    payload => $last->payload,
+    name    => $bundle_sec->name,
+    package => $bundle_sec->package,
+    payload => $bundle_sec->payload,
   });
 };
 
@@ -50,12 +62,20 @@ sub _add_bundle_contents {
         package => $package,
       });
 
-      # XXX: Clearly this is a hack. -- rjbs, 2009-08-24
-      for my $name (keys %$payload) {
-        my @v = ref $payload->{$name}
-              ? @{$payload->{$name}}
-              : $payload->{$name};
-        $section->add_value($name => $_) for @v;
+      if (_HASHLIKE($payload)) {
+        # XXX: Clearly this is a hack. -- rjbs, 2009-08-24
+        for my $name (keys %$payload) {
+          my @v = ref $payload->{$name}
+                ? @{$payload->{$name}}
+                : $payload->{$name};
+          $section->add_value($name => $_) for @v;
+        }
+      } elsif (_ARRAYLIKE($payload)) {
+        for (my $i = 0; $i < @$payload; $i += 2) {
+          $section->add_value(@$payload[ $i, $i + 1 ]);
+        }
+      } else {
+        Carp::confess("don't know how to interpret section payload $payload");
       }
 
       $self->sequence->add_section($section);
@@ -75,7 +95,7 @@ Config::MVP::Assembler::WithBundles - a role to make assemblers expand bundles
 
 =head1 VERSION
 
-version 0.100780
+version 0.101410
 
 =head1 DESCRIPTION
 
@@ -93,7 +113,16 @@ The default implementation looks for a method callde C<mvp_bundle_config>, but
 C<package_bundle_method> can be replaced to allow for other bundle-identifying
 information.
 
-Bundles are expanded by having their bundle method called like this:
+Bundles are expanded by a call to the assembler's
+C<replace_bundle_with_contents> method, like this:
+
+  $assembler->replace_bundle_with_contents($section, $method);
+
+=head2 replace_bundle_with_contents
+
+The default C<replace_bundle_with_contents> method deletes the section from the
+sequence.  It then gets a description of the new sections to introduce, like
+this:
 
   my @new_config = $bundle_section->package->$method({
     name    => $bundle_section->name,
@@ -109,7 +138,8 @@ entries:
 
   [ $name, $package, $payload ]
 
-Each arrayref is converted into a section in the sequence.
+Each arrayref is converted into a section in the sequence.  The C<$payload>
+should be an arrayref of name/value pairs to be added to the created section.
 
 =head1 AUTHOR
 

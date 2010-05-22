@@ -1,5 +1,4 @@
 package Config::MVP::Reader::Test;
-our $VERSION = '0.100780';
 use Moose;
 with qw(Config::MVP::Reader Config::MVP::Reader::Findable);
 

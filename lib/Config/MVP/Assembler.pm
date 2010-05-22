@@ -1,5 +1,7 @@
 package Config::MVP::Assembler;
-our $VERSION = '0.100780';
+BEGIN {
+  $Config::MVP::Assembler::VERSION = '0.101410';
+}
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
 
@@ -26,9 +28,16 @@ has section_class => (
 has sequence => (
   is  => 'ro',
   isa => 'Config::MVP::Sequence',
-  default  => sub { $_[0]->sequence_class->new },
+  default  => sub { $_[0]->sequence_class->new({ assembler => $_[0] }) },
   init_arg => undef,
+  handles  => [ qw(is_finalized finalize) ],
 );
+
+before finalize => sub {
+  my ($self) = @_;
+
+  $self->end_section if $self->current_section;
+};
 
 
 has _between_sections => (
@@ -45,11 +54,13 @@ sub begin_section {
 
   $name = $package_moniker unless defined $name and length $name;
 
-  my $package = $self->expand_package($package_moniker);
+  my $package = ref($package_moniker)
+              ? $$package_moniker
+              : $self->expand_package($package_moniker);
 
   my $section = $self->section_class->new({
     name    => $name,
-    package => $package,
+    (defined $package ? (package => $package) : ()),
   });
 
   $self->_between_sections(0);
@@ -62,6 +73,8 @@ sub end_section {
 
   Carp::confess("can't end a section because no section is active")
     unless $self->current_section;
+
+  $self->current_section->finalize;
 
   $self->_between_sections(1);
 }
@@ -110,7 +123,7 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 0.100780
+version 0.101410
 
 =head1 DESCRIPTION
 
@@ -147,6 +160,8 @@ instance of the assembler's C<sequence_class>.
 
   $assembler->begin_section($package_moniker);
 
+  $assembler->begin_section( \$package );
+
 This method tells the assembler that it should begin work on a new section with
 the given identifier.  If it is already working on a section, an error will be
 raised.  See C<L</change_section>> for a method to begin a new section, ending
@@ -154,7 +169,10 @@ the current one if needed.
 
 The package moniker is expanded by the C<L</expand_package>> method.  The name,
 if not given, defaults to the package moniker.  These data are used to create a
-new section and the section is added to the end of the sequence.
+new section and the section is added to the end of the sequence.  If the
+package argument is a reference, it is used as the literal value for the
+package, and no expansion is performed.  If it is a reference to undef, a
+section with no package is created.
 
 =head2 end_section
 
