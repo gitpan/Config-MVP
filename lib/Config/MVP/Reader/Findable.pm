@@ -1,44 +1,12 @@
 package Config::MVP::Reader::Findable;
 BEGIN {
-  $Config::MVP::Reader::Findable::VERSION = '0.101410';
+  $Config::MVP::Reader::Findable::VERSION = '1.101450';
 }
 use Moose::Role;
 # ABSTRACT: a config class that Config::MVP::Reader::Finder can find
 
 
-use File::Spec;
-
-
-requires 'default_extension';
-
-
-sub can_be_found {
-  my ($self, $arg) = @_;
-
-  my $config_file = $self->filename_from_args($arg);
-  return -r "$config_file" and -f _;
-}
-
-
-sub filename_from_args {
-  my ($self, $arg) = @_;
-
-  # XXX: maybe we should detect conflicting cases -- rjbs, 2009-08-18
-  my $filename;
-  if ($arg->{filename}) {
-    $filename = $arg->{filename}
-  } else {
-    my $basename = $arg->{basename};
-    confess "no filename or basename supplied"
-      unless defined $arg->{basename} and length $arg->{basename};
-
-    my $extension = $self->default_extension;
-    $filename = $basename;
-    $filename .= ".$extension" if defined $extension;
-  }
-
-  return File::Spec->catfile("$arg->{root}", $filename);
-}
+requires 'refined_location';
 
 no Moose::Role;
 1;
@@ -53,37 +21,23 @@ Config::MVP::Reader::Findable - a config class that Config::MVP::Reader::Finder 
 
 =head1 VERSION
 
-version 0.101410
+version 1.101450
 
 =head1 DESCRIPTION
 
 Config::MVP::Reader::Findable is a role meant to be composed alongside
-Config::MVP::Reader.  It indicates to L<Config::MVP::Reader::Finder> that the
-composing config reader can look in a directory and decide whether there's a
-relevant file in the configuration root.
+Config::MVP::Reader.
 
 =head1 METHODS
 
-=head2 default_extension
+=head2 refined_location
 
-This method, B<which must be composed by classes including this role>, returns
-the default extension used by files in the format this reader can read.
-
-When the Finder tries to find configuration, it have a directory root and a
-basename.  Each (Findable) reader that it tries in turn will look for a file
-F<basename.extension> in the root directory.  If exactly one file is found,
-that file is read.
-
-=head2 can_be_found
-
-This method gets the same arguments as C<read_config> and returns true if this
-config reader will be able to handle the request.
-
-=head2 filename_from_args
-
-This method gets the same arguments as C<read_config> and will return the fully
-qualified filename of the file it would want to read for configuration.  This
-file is not guaranteed to exist or be readable.
+This method is used to decide whether a Findable reader can read a specific
+thing under the C<$location> argument passed to C<read_config>.  The location
+could be a directory or base file name or dbh or almost anything else.  This
+method will return false if it can't find anything to read.  If it can find
+something to read, it will return a new (or unchanged) value for C<$location>
+to be used in reading the config.
 
 =head1 AUTHOR
 

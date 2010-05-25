@@ -1,6 +1,6 @@
 package Config::MVP::Assembler;
 BEGIN {
-  $Config::MVP::Assembler::VERSION = '0.101410';
+  $Config::MVP::Assembler::VERSION = '1.101450';
 }
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
@@ -123,7 +123,7 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 0.101410
+version 1.101450
 
 =head1 DESCRIPTION
 

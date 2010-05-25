@@ -1,18 +1,16 @@
 package Config::MVP::Reader::Hash;
 BEGIN {
-  $Config::MVP::Reader::Hash::VERSION = '0.101410';
+  $Config::MVP::Reader::Hash::VERSION = '1.101450';
 }
 use Moose;
 with qw(Config::MVP::Reader);
 # ABSTRACT: a reader that tries to cope with a plain old hashref
 
 
-sub read_config {
-  my ($self, $arg) = @_;
+sub read_into_assembler {
+  my ($self, $location, $assembler) = @_;
 
-  confess "no hash given to $self" unless my $hash = $arg->{hash};
-
-  my $assembler = $self->assembler;
+  confess "no hash given to $self" unless my $hash = $location;
 
   for my $name (keys %$hash) {
     my $payload = { %{ $hash->{ $name } } };
@@ -45,11 +43,11 @@ Config::MVP::Reader::Hash - a reader that tries to cope with a plain old hashref
 
 =head1 VERSION
 
-version 0.101410
+version 1.101450
 
 =head1 SYNOPSIS
 
-  my $sequence = Config::MVP::Reader::Hash->new->read_config({ hash => \%h });
+  my $sequence = Config::MVP::Reader::Hash->new->read_config( \%config );
 
 =head1 DESCRIPTION
 

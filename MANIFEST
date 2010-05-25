@@ -11,6 +11,7 @@ lib/Config/MVP/Assembler.pm
 lib/Config/MVP/Assembler/WithBundles.pm
 lib/Config/MVP/Reader.pm
 lib/Config/MVP/Reader/Findable.pm
+lib/Config/MVP/Reader/Findable/ByExtension.pm
 lib/Config/MVP/Reader/Finder.pm
 lib/Config/MVP/Reader/Hash.pm
 lib/Config/MVP/Section.pm

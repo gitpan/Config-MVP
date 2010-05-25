@@ -11,7 +11,9 @@ use ExtUtils::MakeMaker 6.31;
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'multivalue-property package-oriented configuration',
   'AUTHOR' => 'Ricardo Signes <rjbs@cpan.org>',
-  'BUILD_REQUIRES' => {},
+  'BUILD_REQUIRES' => {
+    'Test::More' => '0'
+  },
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
   },
@@ -29,7 +31,7 @@ my %WriteMakefileArgs = (
     'Test::More' => '0.88',
     'Tie::IxHash' => '0'
   },
-  'VERSION' => '0.101410',
+  'VERSION' => '1.101450',
   'test' => {
     'TESTS' => 't/*.t'
   }
