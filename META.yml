@@ -24,7 +24,7 @@ requires:
   Tie::IxHash: 0
 resources:
   repository: git://git.codesimply.com/Config-MVP.git
-version: 1.101450
+version: 1.101451
 x_Dist_Zilla:
   plugins:
     -

@@ -1,6 +1,6 @@
 package Config::MVP::Sequence;
 BEGIN {
-  $Config::MVP::Sequence::VERSION = '1.101450';
+  $Config::MVP::Sequence::VERSION = '1.101451';
 }
 use Moose;
 # ABSTRACT: an ordered set of named configuration sections
@@ -129,7 +129,7 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 1.101450
+version 1.101451
 
 =head1 DESCRIPTION
 

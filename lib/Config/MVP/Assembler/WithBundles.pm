@@ -1,6 +1,6 @@
 package Config::MVP::Assembler::WithBundles;
 BEGIN {
-  $Config::MVP::Assembler::WithBundles::VERSION = '1.101450';
+  $Config::MVP::Assembler::WithBundles::VERSION = '1.101451';
 }
 use Moose::Role;
 # ABSTRACT: a role to make assemblers expand bundles
@@ -79,6 +79,7 @@ sub _add_bundle_contents {
       }
 
       $self->sequence->add_section($section);
+      $section->finalize;
     }
   }
 }
@@ -95,7 +96,7 @@ Config::MVP::Assembler::WithBundles - a role to make assemblers expand bundles
 
 =head1 VERSION
 
-version 1.101450
+version 1.101451
 
 =head1 DESCRIPTION
 
