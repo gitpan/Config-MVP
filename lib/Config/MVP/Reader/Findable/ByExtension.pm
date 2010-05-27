@@ -1,11 +1,11 @@
 package Config::MVP::Reader::Findable::ByExtension;
 BEGIN {
-  $Config::MVP::Reader::Findable::ByExtension::VERSION = '1.101451';
+  $Config::MVP::Reader::Findable::ByExtension::VERSION = '2.101460';
 }
 use Moose::Role;
 # ABSTRACT: a Findable Reader that looks for files by extension
 
-with qw(Config::MVP::Reader Config::MVP::Reader::Findable);
+with qw(Config::MVP::Reader::Findable);
 
 use File::Spec;
 
@@ -33,7 +33,7 @@ Config::MVP::Reader::Findable::ByExtension - a Findable Reader that looks for fi
 
 =head1 VERSION
 
-version 1.101451
+version 2.101460
 
 =head1 METHODS
 

@@ -31,7 +31,7 @@ my %WriteMakefileArgs = (
     'Test::More' => '0.88',
     'Tie::IxHash' => '0'
   },
-  'VERSION' => '1.101451',
+  'VERSION' => '2.101460',
   'test' => {
     'TESTS' => 't/*.t'
   }
