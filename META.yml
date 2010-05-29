@@ -7,7 +7,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: 6.31
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 3.101460, CPAN::Meta::Converter version 2.101460'
+generated_by: 'Dist::Zilla version 3.101460, CPAN::Meta::Converter version 2.101461'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -22,9 +22,10 @@ requires:
   Params::Util: 0
   Test::More: 0.88
   Tie::IxHash: 0
+  Try::Tiny: 0
 resources:
   repository: git://git.codesimply.com/Config-MVP.git
-version: 2.101460
+version: 2.101480
 x_Dist_Zilla:
   plugins:
     -

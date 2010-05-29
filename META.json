@@ -26,7 +26,8 @@
             "Moose::Util::TypeConstraints" : "0",
             "Params::Util" : "0",
             "Test::More" : "0.88",
-            "Tie::IxHash" : "0"
+            "Tie::IxHash" : "0",
+            "Try::Tiny" : "0"
          }
       },
       "test" : {
@@ -40,7 +41,7 @@
          "url" : "git://git.codesimply.com/Config-MVP.git"
       }
    },
-   "version" : "2.101460",
+   "version" : "2.101480",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

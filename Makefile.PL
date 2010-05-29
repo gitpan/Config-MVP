@@ -29,9 +29,10 @@ my %WriteMakefileArgs = (
     'Moose::Util::TypeConstraints' => '0',
     'Params::Util' => '0',
     'Test::More' => '0.88',
-    'Tie::IxHash' => '0'
+    'Tie::IxHash' => '0',
+    'Try::Tiny' => '0'
   },
-  'VERSION' => '2.101460',
+  'VERSION' => '2.101480',
   'test' => {
     'TESTS' => 't/*.t'
   }
