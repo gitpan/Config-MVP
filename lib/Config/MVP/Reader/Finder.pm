@@ -1,6 +1,6 @@
 package Config::MVP::Reader::Finder;
 BEGIN {
-  $Config::MVP::Reader::Finder::VERSION = '2.101480';
+  $Config::MVP::Reader::Finder::VERSION = '2.101540';
 }
 use Moose;
 extends 'Config::MVP::Reader';
@@ -67,13 +67,17 @@ sub read_config {
 
   local $arg->{assembler} = $arg->{assembler} || $self->build_assembler;
 
-  my $which  = try {
-    $self->_which_reader($location);
+  my $which;
+  my $instead;
+  try {
+    $which = $self->_which_reader($location);
   } catch {
     die $_ unless $_ =~ /^no viable configuration/;
     die $_ unless defined (my $handler = $self->if_none);
-    return $self->$handler($location, $arg);
+    $instead = $self->$handler($location, $arg);
   };
+
+  return $instead unless $which;
 
   my $reader = $which->{package}->new;
 
@@ -99,7 +103,7 @@ Config::MVP::Reader::Finder - a reader that finds an appropriate file
 
 =head1 VERSION
 
-version 2.101480
+version 2.101540
 
 =head1 DESCRIPTION
 

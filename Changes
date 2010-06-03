@@ -1,5 +1,8 @@
 Revision history for Config-MVP
 
+2.101540  2010-06-03 00:28:57 America/New_York
+          improve if_none to return from the proper scope (i.e., now it works)
+
 2.101480  2010-05-28 22:59:18 America/New_York
           add an if_none callback to Reader::Finder; for now, private
 
