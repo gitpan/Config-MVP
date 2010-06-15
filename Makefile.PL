@@ -24,7 +24,7 @@ my %WriteMakefileArgs = (
   'PREREQ_PM' => {
     'File::Spec' => '0',
     'Module::Pluggable::Object' => '0',
-    'Moose' => '0',
+    'Moose' => '0.91',
     'Moose::Role' => '0',
     'Moose::Util::TypeConstraints' => '0',
     'Params::Util' => '0',
@@ -32,7 +32,7 @@ my %WriteMakefileArgs = (
     'Tie::IxHash' => '0',
     'Try::Tiny' => '0'
   },
-  'VERSION' => '2.101540',
+  'VERSION' => '2.101650',
   'test' => {
     'TESTS' => 't/*.t'
   }
@@ -41,10 +41,10 @@ my %WriteMakefileArgs = (
 
 unless ( eval { ExtUtils::MakeMaker->VERSION(6.56) } ) {
   my $br = delete $WriteMakefileArgs{BUILD_REQUIRES};
-  my $pp = $WriteMakefileArgs{PREREQ_PM}; 
+  my $pp = $WriteMakefileArgs{PREREQ_PM};
   for my $mod ( keys %$br ) {
     if ( exists $pp->{$mod} ) {
-      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod}; 
+      $pp->{$mod} = $br->{$mod} if $br->{$mod} > $pp->{$mod};
     }
     else {
       $pp->{$mod} = $br->{$mod};

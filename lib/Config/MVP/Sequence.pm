@@ -1,8 +1,8 @@
 package Config::MVP::Sequence;
 BEGIN {
-  $Config::MVP::Sequence::VERSION = '2.101540';
+  $Config::MVP::Sequence::VERSION = '2.101650';
 }
-use Moose;
+use Moose 0.91;
 # ABSTRACT: an ordered set of named configuration sections
 
 
@@ -129,7 +129,7 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 2.101540
+version 2.101650
 
 =head1 DESCRIPTION
 
@@ -185,7 +185,7 @@ This method returns the section objects, in order.
 
 =head1 AUTHOR
 
-  Ricardo Signes <rjbs@cpan.org>
+Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,6 +1,6 @@
 package Config::MVP::Reader::Hash;
 BEGIN {
-  $Config::MVP::Reader::Hash::VERSION = '2.101540';
+  $Config::MVP::Reader::Hash::VERSION = '2.101650';
 }
 use Moose;
 extends 'Config::MVP::Reader';
@@ -43,7 +43,7 @@ Config::MVP::Reader::Hash - a reader that tries to cope with a plain old hashref
 
 =head1 VERSION
 
-version 2.101540
+version 2.101650
 
 =head1 SYNOPSIS
 
@@ -60,7 +60,7 @@ L<__package> entry is found.
 
 =head1 AUTHOR
 
-  Ricardo Signes <rjbs@cpan.org>
+Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,8 +1,8 @@
 package Config::MVP::Section;
 BEGIN {
-  $Config::MVP::Section::VERSION = '2.101540';
+  $Config::MVP::Section::VERSION = '2.101650';
 }
-use Moose;
+use Moose 0.91;
 # ABSTRACT: one section of an MVP configuration sequence
 
 
@@ -165,7 +165,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 2.101540
+version 2.101650
 
 =head1 DESCRIPTION
 
@@ -247,7 +247,7 @@ added will result in an exception.
 
 =head1 AUTHOR
 
-  Ricardo Signes <rjbs@cpan.org>
+Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 

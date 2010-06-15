@@ -1,6 +1,6 @@
 package Config::MVP::Assembler::WithBundles;
 BEGIN {
-  $Config::MVP::Assembler::WithBundles::VERSION = '2.101540';
+  $Config::MVP::Assembler::WithBundles::VERSION = '2.101650';
 }
 use Moose::Role;
 # ABSTRACT: a role to make assemblers expand bundles
@@ -96,7 +96,7 @@ Config::MVP::Assembler::WithBundles - a role to make assemblers expand bundles
 
 =head1 VERSION
 
-version 2.101540
+version 2.101650
 
 =head1 DESCRIPTION
 
@@ -144,7 +144,7 @@ should be an arrayref of name/value pairs to be added to the created section.
 
 =head1 AUTHOR
 
-  Ricardo Signes <rjbs@cpan.org>
+Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
