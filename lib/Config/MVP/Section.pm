@@ -1,8 +1,12 @@
 package Config::MVP::Section;
 BEGIN {
-  $Config::MVP::Section::VERSION = '2.101650';
+  $Config::MVP::Section::VERSION = '2.200000';
 }
 use Moose 0.91;
+
+use Class::Load 0.06 ();
+use Config::MVP::Error;
+
 # ABSTRACT: one section of an MVP configuration sequence
 
 
@@ -70,7 +74,7 @@ has is_finalized => (
 before finalize => sub {
   my ($self) = @_;
 
-  confess "can't finalize a Config::MVP::Section that hasn't been sequenced"
+  Config::MVP::Error->throw("can't finalize unsequenced Config::MVP::Section")
     unless $self->sequence;
 };
 
@@ -87,8 +91,10 @@ has sequence => (
 
 sub _set_sequence {
   my ($self, $seq) = @_;
-  confess "can't change Config::MVP::Section's sequence after it's set"
+
+  Config::MVP::Error->throw("Config::MVP::Section cannot be resequenced")
     if $self->sequence;
+
   $self->__set_sequence($seq);
 }
 
@@ -97,10 +103,8 @@ sub sequence {
   return undef unless $self->_sequence_has_been_set;
   my $seq = $self->_sequence;
 
-  unless (defined $seq) {
-    confess "tried to access sequence for a Config::MVP::Section, "
-          . "but it has been destroyed"
-  }
+  Config::MVP::Error->throw("can't access section's destroyed sequence")
+    unless defined $seq;
 
   return $seq;
 }
@@ -131,6 +135,24 @@ sub add_value {
   $self->payload->{$name} = $value;
 }
 
+
+sub load_package {
+  my ($self, $package, $plugin) = @_;
+
+  Class::Load::load_optional_class($package)
+    or $self->missing_package($plugin, $package);
+}
+
+
+sub missing_package {
+  my ($self, $package, $plugin) = @_ ;
+
+  Config::MVP::Error->throw({
+    ident   => 'package not installed',
+    message => "$package (for plugin $plugin) does not appear to be installed",
+  });
+}
+
 sub _BUILD_package_settings {
   my ($self) = @_;
 
@@ -138,9 +160,7 @@ sub _BUILD_package_settings {
 
   confess "illegal package name $pkg" unless Params::Util::_CLASS($pkg);
 
-  my $name = $self->name;
-  eval "require $pkg; 1"
-    or confess "couldn't load package $pkg for plugin $name: $@";
+  $self->load_package($pkg, $self->name);
 
   # We call these accessors for lazy attrs to ensure they're initialized from
   # defaults if needed.  Crash early! -- rjbs, 2009-08-09
@@ -165,7 +185,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 2.101650
+version 2.200000
 
 =head1 DESCRIPTION
 
@@ -245,13 +265,29 @@ an arrayref that will store all values for that property.
 Attempting to add a value for a non-multivalue property whose value was already
 added will result in an exception.
 
+=head2 load_package
+
+  $section->load_package($package, $plugin);
+
+This method is used to ensure that the given C<$package> is loaded, and is
+called whenever a section with a package is created.  By default, it delegates
+to L<Class::Load>.  If the package can't be found, it calls the
+L<missing_package> method.  Errors in compilation are not suppressed.
+
+=head2 missing_package
+
+  $section->missing_package($package, $plugin);
+
+This method is called when C<load_package> encounters a package that is not
+installed.  By default, it throws an exception.
+
 =head1 AUTHOR
 
 Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo Signes.
+This software is copyright (c) 2011 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

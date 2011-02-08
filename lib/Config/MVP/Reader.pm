@@ -1,6 +1,6 @@
 package Config::MVP::Reader;
 BEGIN {
-  $Config::MVP::Reader::VERSION = '2.101650';
+  $Config::MVP::Reader::VERSION = '2.200000';
 }
 use Moose;
 # ABSTRACT: object to read config from storage into an assembler
@@ -41,7 +41,7 @@ Config::MVP::Reader - object to read config from storage into an assembler
 
 =head1 VERSION
 
-version 2.101650
+version 2.200000
 
 =head1 SYNOPSIS
 
@@ -108,7 +108,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo Signes.
+This software is copyright (c) 2011 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

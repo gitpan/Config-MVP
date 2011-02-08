@@ -1,10 +1,11 @@
 package Config::MVP::Assembler;
 BEGIN {
-  $Config::MVP::Assembler::VERSION = '2.101650';
+  $Config::MVP::Assembler::VERSION = '2.200000';
 }
 use Moose;
 # ABSTRACT: multivalue-property config-loading state machine
 
+use Config::MVP::Error;
 use Config::MVP::Sequence;
 use Config::MVP::Section;
 
@@ -49,7 +50,7 @@ has _between_sections => (
 sub begin_section {
   my ($self, $package_moniker, $name) = @_;
 
-  Carp::confess("can't begin a new section with a section open")
+  Config::MVP::Error->throw("can't begin a new section while a section is open")
     if $self->current_section;
 
   $name = $package_moniker unless defined $name and length $name;
@@ -71,7 +72,7 @@ sub begin_section {
 sub end_section {
   my ($self) = @_;
 
-  Carp::confess("can't end a section because no section is active")
+  Config::MVP::Error->throw("can't end a section when no section is active")
     unless $self->current_section;
 
   $self->current_section->finalize;
@@ -91,7 +92,7 @@ sub change_section {
 sub add_value {
   my ($self, $name, $value) = @_;
 
-  confess "can't set value without a section to work in"
+  Config::MVP::Error->throw("can't set value when no section is active")
     unless my $section = $self->current_section;
 
   $section->add_value($name => $value);
@@ -123,7 +124,7 @@ Config::MVP::Assembler - multivalue-property config-loading state machine
 
 =head1 VERSION
 
-version 2.101650
+version 2.200000
 
 =head1 DESCRIPTION
 
@@ -252,7 +253,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo Signes.
+This software is copyright (c) 2011 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

@@ -1,12 +1,13 @@
 package Config::MVP::Reader::Finder;
 BEGIN {
-  $Config::MVP::Reader::Finder::VERSION = '2.101650';
+  $Config::MVP::Reader::Finder::VERSION = '2.200000';
 }
 use Moose;
 extends 'Config::MVP::Reader';
 # ABSTRACT: a reader that finds an appropriate file
 
 
+use Config::MVP::Error;
 use Module::Pluggable::Object;
 use Try::Tiny;
 
@@ -44,10 +45,12 @@ sub _which_reader {
     push @options, [ $pkg, $location ];
   }
 
-  confess "no viable configuration could be found" unless @options;
+  Config::MVP::Error->throw("no viable configuration could be found")
+    unless @options;
 
   # XXX: Improve this error message -- rjbs, 2010-05-24
-  confess "multiple possible config plugins found" if @options > 1;
+  Config::MVP::Error->throw("multiple possible config plugins found")
+    if @options > 1;
 
   return {
     'package'  => $options[0][0],
@@ -103,7 +106,7 @@ Config::MVP::Reader::Finder - a reader that finds an appropriate file
 
 =head1 VERSION
 
-version 2.101650
+version 2.200000
 
 =head1 DESCRIPTION
 
@@ -136,7 +139,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo Signes.
+This software is copyright (c) 2011 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

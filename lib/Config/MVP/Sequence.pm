@@ -1,12 +1,13 @@
 package Config::MVP::Sequence;
 BEGIN {
-  $Config::MVP::Sequence::VERSION = '2.101650';
+  $Config::MVP::Sequence::VERSION = '2.200000';
 }
 use Moose 0.91;
 # ABSTRACT: an ordered set of named configuration sections
 
 
 use Tie::IxHash;
+use Config::MVP::Error;
 use Config::MVP::Section;
 use Moose::Util::TypeConstraints ();
 
@@ -33,8 +34,10 @@ has assembler => (
 
 sub _set_assembler {
   my ($self, $assembler) = @_;
-  confess "can't change Config::MVP::Sequence's assembler after it's set"
+
+  Config::MVP::Error->throw("can't alter Config::MVP::Sequence's assembler")
     if $self->assembler;
+
   $self->__set_assembler($assembler);
 }
 
@@ -44,8 +47,7 @@ sub assembler {
   my $assembler = $self->_assembler;
 
   unless (defined $assembler) {
-    confess "tried to access assembler for a Config::MVP::Sequence, "
-          . "but it has been destroyed"
+    Config::MVP::Error->throw("can't access sequences's destroyed assembler")
   }
 
   return $assembler;
@@ -65,7 +67,8 @@ has is_finalized => (
 sub add_section {
   my ($self, $section) = @_;
 
-  confess "can't add sections to finalized sequence" if $self->is_finalized;
+  Config::MVP::Error->throw("can't add sections to finalized sequence")
+    if $self->is_finalized;
 
   my $name = $section->name;
   confess "already have a section named $name" if $self->_sections->{ $name };
@@ -84,7 +87,7 @@ sub add_section {
 sub delete_section {
   my ($self, $name) = @_;
 
-  confess "can't delete sections from finalized sequence"
+  Config::MVP::Error->throw("can't delete sections from finalized sequence")
     if $self->is_finalized;
 
   my $sections = $self->_sections;
@@ -129,7 +132,7 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 2.101650
+version 2.200000
 
 =head1 DESCRIPTION
 
@@ -189,7 +192,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Ricardo Signes.
+This software is copyright (c) 2011 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
