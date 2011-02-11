@@ -1,6 +1,6 @@
 package Config::MVP::Reader;
 BEGIN {
-  $Config::MVP::Reader::VERSION = '2.200000';
+  $Config::MVP::Reader::VERSION = '2.200001';
 }
 use Moose;
 # ABSTRACT: object to read config from storage into an assembler
@@ -41,7 +41,7 @@ Config::MVP::Reader - object to read config from storage into an assembler
 
 =head1 VERSION
 
-version 2.200000
+version 2.200001
 
 =head1 SYNOPSIS
 

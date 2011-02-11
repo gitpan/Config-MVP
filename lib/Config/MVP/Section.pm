@@ -1,6 +1,6 @@
 package Config::MVP::Section;
 BEGIN {
-  $Config::MVP::Section::VERSION = '2.200000';
+  $Config::MVP::Section::VERSION = '2.200001';
 }
 use Moose 0.91;
 
@@ -147,9 +147,21 @@ sub load_package {
 sub missing_package {
   my ($self, $package, $plugin) = @_ ;
 
-  Config::MVP::Error->throw({
+  my $class = Moose::Meta::Class->create_anon_class(
+    superclasses => [ 'Config::MVP::Error' ],
+    cached       => 1,
+    attributes   => [
+      Moose::Meta::Attribute->new(package => (
+        is       => 'ro',
+        required => 1,
+      )),
+    ],
+  );
+
+  $class->name->throw({
     ident   => 'package not installed',
     message => "$package (for plugin $plugin) does not appear to be installed",
+    package => $package,
   });
 }
 
@@ -185,7 +197,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 2.200000
+version 2.200001
 
 =head1 DESCRIPTION
 

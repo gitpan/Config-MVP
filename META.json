@@ -53,7 +53,7 @@
          "url" : "git://git.codesimply.com/Config-MVP.git"
       }
    },
-   "version" : "2.200000",
+   "version" : "2.200001",
    "x_Dist_Zilla" : {
       "plugins" : [
          {

@@ -1,6 +1,6 @@
 package Config::MVP::Error;
 BEGIN {
-  $Config::MVP::Error::VERSION = '2.200000';
+  $Config::MVP::Error::VERSION = '2.200001';
 }
 use Moose;
 
@@ -43,7 +43,7 @@ Config::MVP::Error
 
 =head1 VERSION
 
-version 2.200000
+version 2.200001
 
 =head1 AUTHOR
 
