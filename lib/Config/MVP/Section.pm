@@ -1,10 +1,10 @@
 package Config::MVP::Section;
-BEGIN {
-  $Config::MVP::Section::VERSION = '2.200001';
+{
+  $Config::MVP::Section::VERSION = '2.200002';
 }
 use Moose 0.91;
 
-use Class::Load 0.06 ();
+use Class::Load 0.17 ();
 use Config::MVP::Error;
 
 # ABSTRACT: one section of an MVP configuration sequence
@@ -197,7 +197,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 2.200001
+version 2.200002
 
 =head1 DESCRIPTION
 
@@ -299,7 +299,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2011 by Ricardo Signes.
+This software is copyright (c) 2012 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
