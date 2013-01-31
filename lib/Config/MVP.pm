@@ -1,6 +1,6 @@
 package Config::MVP;
 {
-  $Config::MVP::VERSION = '2.200002';
+  $Config::MVP::VERSION = '2.200003';
 }
 # ABSTRACT: multivalue-property package-oriented configuration
 use strict;
@@ -10,6 +10,7 @@ use warnings;
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -18,7 +19,7 @@ Config::MVP - multivalue-property package-oriented configuration
 
 =head1 VERSION
 
-version 2.200002
+version 2.200003
 
 =head1 SYNOPSIS
 
@@ -66,7 +67,7 @@ examples that should help explain how things work.
 
 Imagine that we've got a program called DeliveryBoy that accepts mail and does
 stuff with it.  The "stuff" is entirely up to the user's configuration.  He can
-set up plugins that will be used on the message.  He write a config file that's
+set up plugins that will be used on the message.  He writes a config file that's
 read by L<Config::INI::MVP::Reader|Config::INI::MVP::Reader>, which is a thin
 wrapper around Config::MVP used to load MVP-style config from F<INI> files.
 
@@ -94,7 +95,7 @@ Here's the user's configuration:
   [Deliver]
   dest = Maildir
 
-The user will end up with a sequence with six sections, which we can represent
+The user will end up with a sequence with five sections, which we can represent
 something like this:
 
   { name    => 'Whitelist',
@@ -225,10 +226,9 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo Signes.
+This software is copyright (c) 2013 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

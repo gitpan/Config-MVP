@@ -1,6 +1,6 @@
 package Config::MVP::Reader::Finder;
 {
-  $Config::MVP::Reader::Finder::VERSION = '2.200002';
+  $Config::MVP::Reader::Finder::VERSION = '2.200003';
 }
 use Moose;
 extends 'Config::MVP::Reader';
@@ -98,6 +98,7 @@ __PACKAGE__->meta->make_immutable;
 1;
 
 __END__
+
 =pod
 
 =head1 NAME
@@ -106,7 +107,7 @@ Config::MVP::Reader::Finder - a reader that finds an appropriate file
 
 =head1 VERSION
 
-version 2.200002
+version 2.200003
 
 =head1 DESCRIPTION
 
@@ -139,10 +140,9 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Ricardo Signes.
+This software is copyright (c) 2013 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
 
 =cut
-

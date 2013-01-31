@@ -17,6 +17,8 @@ lib/Config/MVP/Reader/Finder.pm
 lib/Config/MVP/Reader/Hash.pm
 lib/Config/MVP/Section.pm
 lib/Config/MVP/Sequence.pm
+t/00-compile.t
+t/000-report-versions-tiny.t
 t/basic.t
 t/eg/config.mvp-test
 t/final-hooks.t
@@ -32,4 +34,5 @@ t/lib/Foo/CompileError.pm
 t/lib/Foo/Metaboondle.pm
 t/lib/Foo/Quux.pm
 t/reader.t
-t/release-pod-syntax.t
+xt/release/changes_has_content.t
+xt/release/pod-syntax.t

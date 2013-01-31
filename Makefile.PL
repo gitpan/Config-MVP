@@ -12,6 +12,8 @@ my %WriteMakefileArgs = (
   "ABSTRACT" => "multivalue-property package-oriented configuration",
   "AUTHOR" => "Ricardo Signes <rjbs\@cpan.org>",
   "BUILD_REQUIRES" => {
+    "File::Find" => 0,
+    "File::Temp" => 0,
     "Test::Fatal" => 0,
     "Test::More" => "0.96"
   },
@@ -42,7 +44,7 @@ my %WriteMakefileArgs = (
     "strict" => 0,
     "warnings" => 0
   },
-  "VERSION" => "2.200002",
+  "VERSION" => "2.200003",
   "test" => {
     "TESTS" => "t/*.t"
   }
