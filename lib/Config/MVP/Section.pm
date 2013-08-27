@@ -1,6 +1,6 @@
 package Config::MVP::Section;
 {
-  $Config::MVP::Section::VERSION = '2.200003';
+  $Config::MVP::Section::VERSION = '2.200004';
 }
 use Moose 0.91;
 
@@ -140,7 +140,7 @@ sub load_package {
   my ($self, $package, $plugin) = @_;
 
   Class::Load::load_optional_class($package)
-    or $self->missing_package($plugin, $package);
+    or $self->missing_package($package, $plugin);
 }
 
 
@@ -198,7 +198,7 @@ Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 2.200003
+version 2.200004
 
 =head1 DESCRIPTION
 

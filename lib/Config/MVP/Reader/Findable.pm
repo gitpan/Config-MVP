@@ -1,6 +1,6 @@
 package Config::MVP::Reader::Findable;
 {
-  $Config::MVP::Reader::Findable::VERSION = '2.200003';
+  $Config::MVP::Reader::Findable::VERSION = '2.200004';
 }
 use Moose::Role;
 # ABSTRACT: a config class that Config::MVP::Reader::Finder can find
@@ -21,7 +21,7 @@ Config::MVP::Reader::Findable - a config class that Config::MVP::Reader::Finder 
 
 =head1 VERSION
 
-version 2.200003
+version 2.200004
 
 =head1 DESCRIPTION
 
