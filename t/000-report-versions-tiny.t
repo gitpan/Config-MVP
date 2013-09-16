@@ -48,12 +48,12 @@ sub pmver {
     return sprintf('%-45s => %-10s%-15s%s', $module, $pmver, $wanted, "\n");
 }
 
+eval { $v .= pmver('Capture::Tiny','any version') };
 eval { $v .= pmver('Class::Load','0.17') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::Spec','any version') };
-eval { $v .= pmver('IO::Handle','any version') };
-eval { $v .= pmver('IPC::Open3','any version') };
 eval { $v .= pmver('Module::Pluggable::Object','any version') };
+eval { $v .= pmver('Module::Runtime','any version') };
 eval { $v .= pmver('Moose','0.91') };
 eval { $v .= pmver('Moose::Role','any version') };
 eval { $v .= pmver('Moose::Util::TypeConstraints','any version') };
@@ -68,6 +68,7 @@ eval { $v .= pmver('Test::Pod','1.41') };
 eval { $v .= pmver('Throwable','any version') };
 eval { $v .= pmver('Tie::IxHash','any version') };
 eval { $v .= pmver('Try::Tiny','any version') };
+eval { $v .= pmver('blib','any version') };
 eval { $v .= pmver('lib','any version') };
 eval { $v .= pmver('overload','any version') };
 eval { $v .= pmver('strict','any version') };

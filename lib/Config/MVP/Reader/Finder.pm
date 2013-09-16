@@ -1,6 +1,6 @@
 package Config::MVP::Reader::Finder;
 {
-  $Config::MVP::Reader::Finder::VERSION = '2.200004';
+  $Config::MVP::Reader::Finder::VERSION = '2.200005';
 }
 use Moose;
 extends 'Config::MVP::Reader';
@@ -107,7 +107,7 @@ Config::MVP::Reader::Finder - a reader that finds an appropriate file
 
 =head1 VERSION
 
-version 2.200004
+version 2.200005
 
 =head1 DESCRIPTION
 

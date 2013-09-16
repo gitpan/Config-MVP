@@ -1,6 +1,6 @@
 package Config::MVP;
 {
-  $Config::MVP::VERSION = '2.200004';
+  $Config::MVP::VERSION = '2.200005';
 }
 # ABSTRACT: multivalue-property package-oriented configuration
 use strict;
@@ -19,7 +19,7 @@ Config::MVP - multivalue-property package-oriented configuration
 
 =head1 VERSION
 
-version 2.200004
+version 2.200005
 
 =head1 SYNOPSIS
 

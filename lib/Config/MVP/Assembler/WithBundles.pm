@@ -1,11 +1,12 @@
 package Config::MVP::Assembler::WithBundles;
 {
-  $Config::MVP::Assembler::WithBundles::VERSION = '2.200004';
+  $Config::MVP::Assembler::WithBundles::VERSION = '2.200005';
 }
 use Moose::Role;
 # ABSTRACT: a role to make assemblers expand bundles
 
 use Params::Util qw(_HASHLIKE _ARRAYLIKE);
+use Module::Runtime qw(use_module);
 
 
 sub package_bundle_method {
@@ -48,7 +49,7 @@ sub _add_bundle_contents {
   PLUGIN: for my $plugin (@bundle_config) {
     my ($name, $package, $payload) = @$plugin;
 
-    Class::MOP::load_class($package);
+    use_module($package);
 
     if (my $method = $self->package_bundle_method( $package )) {
       $self->_add_bundle_contents($method, {
@@ -97,7 +98,7 @@ Config::MVP::Assembler::WithBundles - a role to make assemblers expand bundles
 
 =head1 VERSION
 
-version 2.200004
+version 2.200005
 
 =head1 DESCRIPTION
 
