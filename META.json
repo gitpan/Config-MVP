@@ -61,16 +61,16 @@
    "release_status" : "stable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/rjbs/config-mvp/issues"
+         "web" : "https://github.com/rjbs/Config-MVP/issues"
       },
-      "homepage" : "https://github.com/rjbs/config-mvp",
+      "homepage" : "https://github.com/rjbs/Config-MVP",
       "repository" : {
          "type" : "git",
-         "url" : "https://github.com/rjbs/config-mvp.git",
-         "web" : "https://github.com/rjbs/config-mvp"
+         "url" : "https://github.com/rjbs/Config-MVP.git",
+         "web" : "https://github.com/rjbs/Config-MVP"
       }
    },
-   "version" : "2.200005",
+   "version" : "2.200006",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.019003"

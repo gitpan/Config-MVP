@@ -1,6 +1,6 @@
 package Config::MVP::Reader::Hash;
 {
-  $Config::MVP::Reader::Hash::VERSION = '2.200005';
+  $Config::MVP::Reader::Hash::VERSION = '2.200006';
 }
 use Moose;
 extends 'Config::MVP::Reader';
@@ -44,7 +44,7 @@ Config::MVP::Reader::Hash - a reader that tries to cope with a plain old hashref
 
 =head1 VERSION
 
-version 2.200005
+version 2.200006
 
 =head1 SYNOPSIS
 

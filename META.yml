@@ -38,10 +38,10 @@ requires:
   strict: 0
   warnings: 0
 resources:
-  bugtracker: https://github.com/rjbs/config-mvp/issues
-  homepage: https://github.com/rjbs/config-mvp
-  repository: https://github.com/rjbs/config-mvp.git
-version: 2.200005
+  bugtracker: https://github.com/rjbs/Config-MVP/issues
+  homepage: https://github.com/rjbs/Config-MVP
+  repository: https://github.com/rjbs/Config-MVP.git
+version: 2.200006
 x_Dist_Zilla:
   perl:
     version: 5.019003
