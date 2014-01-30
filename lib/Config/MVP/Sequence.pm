@@ -1,10 +1,17 @@
 package Config::MVP::Sequence;
-{
-  $Config::MVP::Sequence::VERSION = '2.200006';
-}
-use Moose 0.91;
 # ABSTRACT: an ordered set of named configuration sections
+$Config::MVP::Sequence::VERSION = '2.200007';
+use Moose 0.91;
 
+# =head1 DESCRIPTION
+#
+# A Config::MVP::Sequence is an ordered set of configuration sections, each of
+# which has a name unique within the sequence.
+#
+# For the most part, you can just consult L<Config::MVP> to understand what this
+# class is and how it's used.
+#
+# =cut
 
 use Tie::IxHash;
 use Config::MVP::Error;
@@ -53,6 +60,13 @@ sub assembler {
   return $assembler;
 }
 
+# =attr is_finalized
+#
+# This attribute is true if the sequence has been marked finalized, which will
+# prevent any changes (via methods like C<add_section> or C<delete_section>).  It
+# can be set with the C<finalize> method.
+#
+# =cut
 
 has is_finalized => (
   is  => 'ro',
@@ -63,6 +77,15 @@ has is_finalized => (
   handles  => { finalize => 'set' },
 );
 
+# =method add_section
+#
+#   $sequence->add_section($section);
+#
+# This method adds the given section to the end of the sequence.  If the sequence
+# already contains a section with the same name as the new section, an exception
+# will be raised.
+#
+# =cut
 
 sub add_section {
   my ($self, $section) = @_;
@@ -83,6 +106,14 @@ sub add_section {
   $self->_sections->{ $name } = $section;
 }
 
+# =method delete_section
+#
+#   my $deleted_section = $sequence->delete_section( $name );
+#
+# This method removes a section from the sequence and returns the removed
+# section.  If no section existed, the method returns false.
+#
+# =cut
 
 sub delete_section {
   my ($self, $name) = @_;
@@ -99,6 +130,14 @@ sub delete_section {
   return delete $sections->{ $name };
 }
 
+# =method section_named
+#
+#   my $section = $sequence->section_named( $name );
+#
+# This method returns the section with the given name, if one exists in the
+# sequence.  If no such section exists, the method returns false.
+#
+# =cut
 
 sub section_named {
   my ($self, $name) = @_;
@@ -108,12 +147,26 @@ sub section_named {
   return $sections->{ $name };
 }
 
+# =method section_names
+#
+#   my @names = $sequence->section_names;
+#
+# This method returns a list of the names of the sections, in order.
+#
+# =cut
 
 sub section_names {
   my ($self) = @_;
   return keys %{ $self->_sections };
 }
 
+# =method sections
+#
+#   my @sections = $sequence->sections;
+#
+# This method returns the section objects, in order.
+#
+# =cut
 
 sub sections {
   my ($self) = @_;
@@ -127,13 +180,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 2.200006
+version 2.200007
 
 =head1 DESCRIPTION
 
@@ -193,7 +248,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo Signes.
+This software is copyright (c) 2014 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

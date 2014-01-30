@@ -1,11 +1,23 @@
 package Config::MVP::Reader::Hash;
-{
-  $Config::MVP::Reader::Hash::VERSION = '2.200006';
-}
+# ABSTRACT: a reader that tries to cope with a plain old hashref
+$Config::MVP::Reader::Hash::VERSION = '2.200007';
 use Moose;
 extends 'Config::MVP::Reader';
-# ABSTRACT: a reader that tries to cope with a plain old hashref
 
+# =head1 SYNOPSIS
+#
+#   my $sequence = Config::MVP::Reader::Hash->new->read_config( \%config );
+#
+# =head1 DESCRIPTION
+#
+# In some ways, this is the L<Config::MVP::Reader> of last resort.  Given a
+# hashref, it attempts to interpret it as a Config::MVP::Sequence.  Because
+# hashes are generally unordered, order can't be relied upon unless the hash tied
+# to have order (presumably with L<Tie::IxHash>).  The hash keys are assumed to
+# be section names and will be used as the section package moniker unless a
+# L<__package> entry is found.
+#
+# =cut
 
 sub read_into_assembler {
   my ($self, $location, $assembler) = @_;
@@ -38,13 +50,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Config::MVP::Reader::Hash - a reader that tries to cope with a plain old hashref
 
 =head1 VERSION
 
-version 2.200006
+version 2.200007
 
 =head1 SYNOPSIS
 
@@ -65,7 +79,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo Signes.
+This software is copyright (c) 2014 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

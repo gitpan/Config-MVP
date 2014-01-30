@@ -1,14 +1,21 @@
 package Config::MVP::Section;
-{
-  $Config::MVP::Section::VERSION = '2.200006';
-}
+# ABSTRACT: one section of an MVP configuration sequence
+$Config::MVP::Section::VERSION = '2.200007';
 use Moose 0.91;
 
 use Class::Load 0.17 ();
 use Config::MVP::Error;
 
-# ABSTRACT: one section of an MVP configuration sequence
-
+# =head1 DESCRIPTION
+#
+# For the most part, you can just consult L<Config::MVP> to understand what this
+# class is and how it's used.
+#
+# =attr name
+#
+# This is the section's name.  It's a string, and it must be provided.
+#
+# =cut
 
 has name => (
   is  => 'ro',
@@ -16,6 +23,13 @@ has name => (
   required => 1
 );
 
+# =attr package
+#
+# This is the (Perl) package with which the section is associated.  It is
+# optional.  When the section is instantiated, it will ensure that this package
+# is loaded.
+#
+# =cut
 
 has package => (
   is  => 'ro',
@@ -24,6 +38,19 @@ has package => (
   predicate => 'has_package',
 );
 
+# =attr multivalue_args
+#
+# This attribute is an arrayref of value names that should be considered
+# multivalue properties in the section.  When added to the section, they will
+# always be wrapped in an arrayref, and they may be added to the section more
+# than once.
+#
+# If this attribute is not given during construction, it will default to the
+# result of calling section's package's C<mvp_multivalue_args> method.  If the
+# section has no associated package or if the package doesn't provide that
+# method, it default to an empty arrayref.
+#
+# =cut
 
 has multivalue_args => (
   is   => 'ro',
@@ -39,6 +66,25 @@ has multivalue_args => (
   },
 );
 
+# =attr aliases
+#
+# This attribute is a hashref of name remappings.  For example, if it contains
+# this hashref:
+#
+#   {
+#     file => 'files',
+#     path => 'files',
+#   }
+#
+# Then attempting to set either the "file" or "path" setting for the section
+# would actually set the "files" setting.
+#
+# If this attribute is not given during construction, it will default to the
+# result of calling section's package's C<mvp_aliases> method.  If the
+# section has no associated package or if the package doesn't provide that
+# method, it default to an empty hashref.
+#
+# =cut
 
 has aliases => (
   is   => 'ro',
@@ -53,6 +99,13 @@ has aliases => (
   },
 );
 
+# =attr payload
+#
+# This is the storage into which properties are set.  It is a hashref of names
+# and values.  You should probably not alter the contents of the payload, and
+# should read its contents only.
+#
+# =cut
 
 has payload => (
   is  => 'ro',
@@ -61,6 +114,13 @@ has payload => (
   default  => sub { {} },
 );
 
+# =attr is_finalized
+#
+# This attribute is true if the section has been marked finalized, which will
+# prevent any new values from being added to it.  It can be set with the
+# C<finalize> method.
+#
+# =cut
 
 has is_finalized => (
   is  => 'ro',
@@ -78,6 +138,13 @@ before finalize => sub {
     unless $self->sequence;
 };
 
+# =attr sequence
+#
+# This attributes points to the sequence into which the section has been
+# assembled.  It may be unset if the section has been created but not yet placed
+# in a sequence.
+#
+# =cut
 
 has sequence => (
   is  => 'ro',
@@ -109,6 +176,18 @@ sub sequence {
   return $seq;
 }
 
+# =method add_value
+#
+#   $section->add_value( $name => $value );
+#
+# This method sets the value for the named property to the given value.  If the
+# property is a multivalue property, the new value will be pushed onto the end of
+# an arrayref that will store all values for that property.
+#
+# Attempting to add a value for a non-multivalue property whose value was already
+# added will result in an exception.
+#
+# =cut
 
 sub add_value {
   my ($self, $name, $value) = @_;
@@ -135,6 +214,16 @@ sub add_value {
   $self->payload->{$name} = $value;
 }
 
+# =method load_package
+#
+#   $section->load_package($package, $plugin);
+#
+# This method is used to ensure that the given C<$package> is loaded, and is
+# called whenever a section with a package is created.  By default, it delegates
+# to L<Class::Load>.  If the package can't be found, it calls the
+# L<missing_package> method.  Errors in compilation are not suppressed.
+#
+# =cut
 
 sub load_package {
   my ($self, $package, $plugin) = @_;
@@ -143,6 +232,14 @@ sub load_package {
     or $self->missing_package($package, $plugin);
 }
 
+# =method missing_package
+#
+#   $section->missing_package($package, $plugin);
+#
+# This method is called when C<load_package> encounters a package that is not
+# installed.  By default, it throws an exception.
+#
+# =cut
 
 sub missing_package {
   my ($self, $package, $plugin) = @_ ;
@@ -192,13 +289,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Config::MVP::Section - one section of an MVP configuration sequence
 
 =head1 VERSION
 
-version 2.200006
+version 2.200007
 
 =head1 DESCRIPTION
 
@@ -300,7 +399,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo Signes.
+This software is copyright (c) 2014 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

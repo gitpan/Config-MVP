@@ -1,16 +1,39 @@
 package Config::MVP::Reader::Finder;
-{
-  $Config::MVP::Reader::Finder::VERSION = '2.200006';
-}
+# ABSTRACT: a reader that finds an appropriate file
+$Config::MVP::Reader::Finder::VERSION = '2.200007';
 use Moose;
 extends 'Config::MVP::Reader';
-# ABSTRACT: a reader that finds an appropriate file
 
+# =head1 DESCRIPTION
+#
+# The Finder reader multiplexes many other readers that implement the
+# L<Config::MVP::Reader::Findable> role.  It uses L<Module::Pluggable> to search
+# for modules, limits them to objects implementing the Findable role, and then
+# selects the those which report that they are able to read a configuration file
+# found in the config root directory.  If exactly one findable configuration
+# reader finds a file, it is used to read the file and the configuration sequence
+# is returned.  Otherwise, an exception is raised.
+#
+# Config::MVP::Reader::Finder's C<build_assembler> method will decline a new
+# assembler, so if none was passed to C<read_config>, the Findable reader to
+# which reading is delegated will be responsible for building the assembler,
+# unless a Finder subclass overrides C<build_assembler> to set a default across
+# all possible delegates.
+#
+# =cut
 
 use Config::MVP::Error;
 use Module::Pluggable::Object;
 use Try::Tiny;
 
+# =method default_search_path
+#
+# This is the default search path used to find configuration readers.  This
+# method should return a list, and by default returns:
+#
+#   qw( Config::MVP::Reader )
+#
+# =cut
 
 sub default_search_path {
   return qw(Config::MVP::Reader)
@@ -101,13 +124,15 @@ __END__
 
 =pod
 
+=encoding UTF-8
+
 =head1 NAME
 
 Config::MVP::Reader::Finder - a reader that finds an appropriate file
 
 =head1 VERSION
 
-version 2.200006
+version 2.200007
 
 =head1 DESCRIPTION
 
@@ -140,7 +165,7 @@ Ricardo Signes <rjbs@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2013 by Ricardo Signes.
+This software is copyright (c) 2014 by Ricardo Signes.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
