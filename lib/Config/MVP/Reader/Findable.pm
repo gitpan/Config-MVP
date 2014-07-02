@@ -1,23 +1,23 @@
 package Config::MVP::Reader::Findable;
 # ABSTRACT: a config class that Config::MVP::Reader::Finder can find
-$Config::MVP::Reader::Findable::VERSION = '2.200007';
+$Config::MVP::Reader::Findable::VERSION = '2.200008';
 use Moose::Role;
 
-# =head1 DESCRIPTION
-#
-# Config::MVP::Reader::Findable is a role meant to be composed alongside
-# Config::MVP::Reader.
-#
-# =method refined_location
-#
-# This method is used to decide whether a Findable reader can read a specific
-# thing under the C<$location> argument passed to C<read_config>.  The location
-# could be a directory or base file name or dbh or almost anything else.  This
-# method will return false if it can't find anything to read.  If it can find
-# something to read, it will return a new (or unchanged) value for C<$location>
-# to be used in reading the config.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod Config::MVP::Reader::Findable is a role meant to be composed alongside
+#pod Config::MVP::Reader.
+#pod
+#pod =method refined_location
+#pod
+#pod This method is used to decide whether a Findable reader can read a specific
+#pod thing under the C<$location> argument passed to C<read_config>.  The location
+#pod could be a directory or base file name or dbh or almost anything else.  This
+#pod method will return false if it can't find anything to read.  If it can find
+#pod something to read, it will return a new (or unchanged) value for C<$location>
+#pod to be used in reading the config.
+#pod
+#pod =cut
 
 requires 'refined_location';
 
@@ -36,7 +36,7 @@ Config::MVP::Reader::Findable - a config class that Config::MVP::Reader::Finder 
 
 =head1 VERSION
 
-version 2.200007
+version 2.200008
 
 =head1 DESCRIPTION
 

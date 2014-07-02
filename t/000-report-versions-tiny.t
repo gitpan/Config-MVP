@@ -52,7 +52,6 @@ eval { $v .= pmver('Class::Load','0.17') };
 eval { $v .= pmver('ExtUtils::MakeMaker','6.30') };
 eval { $v .= pmver('File::Spec','any version') };
 eval { $v .= pmver('Module::Pluggable::Object','any version') };
-eval { $v .= pmver('Module::Runtime','any version') };
 eval { $v .= pmver('Moose','0.91') };
 eval { $v .= pmver('Moose::Role','any version') };
 eval { $v .= pmver('Moose::Util::TypeConstraints','any version') };

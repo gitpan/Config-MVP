@@ -1,6 +1,6 @@
 package Config::MVP::Error;
 # ABSTRACT: common exceptions class
-$Config::MVP::Error::VERSION = '2.200007';
+$Config::MVP::Error::VERSION = '2.200008';
 use Moose;
 
 has message => (
@@ -45,7 +45,7 @@ Config::MVP::Error - common exceptions class
 
 =head1 VERSION
 
-version 2.200007
+version 2.200008
 
 =head1 AUTHOR
 

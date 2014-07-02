@@ -1,17 +1,17 @@
 package Config::MVP::Sequence;
 # ABSTRACT: an ordered set of named configuration sections
-$Config::MVP::Sequence::VERSION = '2.200007';
+$Config::MVP::Sequence::VERSION = '2.200008';
 use Moose 0.91;
 
-# =head1 DESCRIPTION
-#
-# A Config::MVP::Sequence is an ordered set of configuration sections, each of
-# which has a name unique within the sequence.
-#
-# For the most part, you can just consult L<Config::MVP> to understand what this
-# class is and how it's used.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod A Config::MVP::Sequence is an ordered set of configuration sections, each of
+#pod which has a name unique within the sequence.
+#pod
+#pod For the most part, you can just consult L<Config::MVP> to understand what this
+#pod class is and how it's used.
+#pod
+#pod =cut
 
 use Tie::IxHash;
 use Config::MVP::Error;
@@ -60,13 +60,13 @@ sub assembler {
   return $assembler;
 }
 
-# =attr is_finalized
-#
-# This attribute is true if the sequence has been marked finalized, which will
-# prevent any changes (via methods like C<add_section> or C<delete_section>).  It
-# can be set with the C<finalize> method.
-#
-# =cut
+#pod =attr is_finalized
+#pod
+#pod This attribute is true if the sequence has been marked finalized, which will
+#pod prevent any changes (via methods like C<add_section> or C<delete_section>).  It
+#pod can be set with the C<finalize> method.
+#pod
+#pod =cut
 
 has is_finalized => (
   is  => 'ro',
@@ -77,15 +77,15 @@ has is_finalized => (
   handles  => { finalize => 'set' },
 );
 
-# =method add_section
-#
-#   $sequence->add_section($section);
-#
-# This method adds the given section to the end of the sequence.  If the sequence
-# already contains a section with the same name as the new section, an exception
-# will be raised.
-#
-# =cut
+#pod =method add_section
+#pod
+#pod   $sequence->add_section($section);
+#pod
+#pod This method adds the given section to the end of the sequence.  If the sequence
+#pod already contains a section with the same name as the new section, an exception
+#pod will be raised.
+#pod
+#pod =cut
 
 sub add_section {
   my ($self, $section) = @_;
@@ -106,14 +106,14 @@ sub add_section {
   $self->_sections->{ $name } = $section;
 }
 
-# =method delete_section
-#
-#   my $deleted_section = $sequence->delete_section( $name );
-#
-# This method removes a section from the sequence and returns the removed
-# section.  If no section existed, the method returns false.
-#
-# =cut
+#pod =method delete_section
+#pod
+#pod   my $deleted_section = $sequence->delete_section( $name );
+#pod
+#pod This method removes a section from the sequence and returns the removed
+#pod section.  If no section existed, the method returns false.
+#pod
+#pod =cut
 
 sub delete_section {
   my ($self, $name) = @_;
@@ -130,14 +130,14 @@ sub delete_section {
   return delete $sections->{ $name };
 }
 
-# =method section_named
-#
-#   my $section = $sequence->section_named( $name );
-#
-# This method returns the section with the given name, if one exists in the
-# sequence.  If no such section exists, the method returns false.
-#
-# =cut
+#pod =method section_named
+#pod
+#pod   my $section = $sequence->section_named( $name );
+#pod
+#pod This method returns the section with the given name, if one exists in the
+#pod sequence.  If no such section exists, the method returns false.
+#pod
+#pod =cut
 
 sub section_named {
   my ($self, $name) = @_;
@@ -147,26 +147,26 @@ sub section_named {
   return $sections->{ $name };
 }
 
-# =method section_names
-#
-#   my @names = $sequence->section_names;
-#
-# This method returns a list of the names of the sections, in order.
-#
-# =cut
+#pod =method section_names
+#pod
+#pod   my @names = $sequence->section_names;
+#pod
+#pod This method returns a list of the names of the sections, in order.
+#pod
+#pod =cut
 
 sub section_names {
   my ($self) = @_;
   return keys %{ $self->_sections };
 }
 
-# =method sections
-#
-#   my @sections = $sequence->sections;
-#
-# This method returns the section objects, in order.
-#
-# =cut
+#pod =method sections
+#pod
+#pod   my @sections = $sequence->sections;
+#pod
+#pod This method returns the section objects, in order.
+#pod
+#pod =cut
 
 sub sections {
   my ($self) = @_;
@@ -188,7 +188,7 @@ Config::MVP::Sequence - an ordered set of named configuration sections
 
 =head1 VERSION
 
-version 2.200007
+version 2.200008
 
 =head1 DESCRIPTION
 

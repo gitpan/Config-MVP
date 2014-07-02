@@ -1,43 +1,45 @@
 package Config::MVP::Reader::Finder;
 # ABSTRACT: a reader that finds an appropriate file
-$Config::MVP::Reader::Finder::VERSION = '2.200007';
+$Config::MVP::Reader::Finder::VERSION = '2.200008';
 use Moose;
 extends 'Config::MVP::Reader';
 
-# =head1 DESCRIPTION
-#
-# The Finder reader multiplexes many other readers that implement the
-# L<Config::MVP::Reader::Findable> role.  It uses L<Module::Pluggable> to search
-# for modules, limits them to objects implementing the Findable role, and then
-# selects the those which report that they are able to read a configuration file
-# found in the config root directory.  If exactly one findable configuration
-# reader finds a file, it is used to read the file and the configuration sequence
-# is returned.  Otherwise, an exception is raised.
-#
-# Config::MVP::Reader::Finder's C<build_assembler> method will decline a new
-# assembler, so if none was passed to C<read_config>, the Findable reader to
-# which reading is delegated will be responsible for building the assembler,
-# unless a Finder subclass overrides C<build_assembler> to set a default across
-# all possible delegates.
-#
-# =cut
+#pod =head1 DESCRIPTION
+#pod
+#pod The Finder reader multiplexes many other readers that implement the
+#pod L<Config::MVP::Reader::Findable> role.  It uses L<Module::Pluggable> to search
+#pod for modules, limits them to objects implementing the Findable role, and then
+#pod selects the those which report that they are able to read a configuration file
+#pod found in the config root directory.  If exactly one findable configuration
+#pod reader finds a file, it is used to read the file and the configuration sequence
+#pod is returned.  Otherwise, an exception is raised.
+#pod
+#pod Config::MVP::Reader::Finder's C<build_assembler> method will decline a new
+#pod assembler, so if none was passed to C<read_config>, the Findable reader to
+#pod which reading is delegated will be responsible for building the assembler,
+#pod unless a Finder subclass overrides C<build_assembler> to set a default across
+#pod all possible delegates.
+#pod
+#pod =cut
 
 use Config::MVP::Error;
 use Module::Pluggable::Object;
 use Try::Tiny;
 
-# =method default_search_path
-#
-# This is the default search path used to find configuration readers.  This
-# method should return a list, and by default returns:
-#
-#   qw( Config::MVP::Reader )
-#
-# =cut
+#pod =method default_search_path
+#pod
+#pod This is the default search path used to find configuration readers.  This
+#pod method should return a list, and by default returns:
+#pod
+#pod   qw( Config::MVP::Reader )
+#pod
+#pod =cut
 
 sub default_search_path {
   return qw(Config::MVP::Reader)
 }
+
+our @DONT_FIND;
 
 has _module_pluggable_object => (
   is => 'ro',
@@ -48,6 +50,9 @@ has _module_pluggable_object => (
       search_path => [ $self->default_search_path ],
       inner       => 0,
       require     => 1,
+
+      # This facility here entirely for testing. -- rjbs, 2014-07-02
+      except      => \@DONT_FIND,
     );
   },
 );
@@ -132,7 +137,7 @@ Config::MVP::Reader::Finder - a reader that finds an appropriate file
 
 =head1 VERSION
 
-version 2.200007
+version 2.200008
 
 =head1 DESCRIPTION
 
